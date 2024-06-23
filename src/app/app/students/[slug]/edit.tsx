@@ -2,33 +2,57 @@ import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import { Toaster, toast } from "sonner";
 import React from "react";
 
+/**
+ * Componente de vista de edición.
+ *
+ * @param label - Etiqueta del botón de apertura del modal (opcional, por defecto "Editar").
+ * @param data - Datos del curso a editar.
+ * @param update - Función para actualizar la lista de cursos después de guardar los cambios.
+ * @returns El componente de vista de edición.
+ */
 export default function EditView({ label = "Editar", data, update }: any) {
-  const [name, setName] = React.useState(data.NAME);
-  const [description, setDescription] = React.useState(data.DESCRIPTION);
-  const [maxStudents, setMaxStudents] = React.useState(data.MAX_STUDENTS);
+  const [firstName, setFirstName] = React.useState(data.FIRST_NAME || "");
+  const [lastName, setLastName] = React.useState(data.LAST_NAME || "");
+  const [email, setEmail] = React.useState(data.EMAIL || "");
+  const [phone, setPhone] = React.useState(data.PHONE || "");
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
-    setName(data.NAME);
-    setDescription(data.DESCRIPTION);
-    setMaxStudents(data.MAX_STUDENTS);
+    setFirstName(data.FIRST_NAME);
+    setLastName(data.LAST_NAME);
+    setEmail(data.EMAIL);
+    setPhone(data.PHONE);
     setOpen(false);
   };
+
+  const validEmail = (email: string) => {
+    if (!email || email.length === 0) return true;
+    const re =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  };
+
+  const validPhone = (phone: string) => {
+    if (!phone || phone.length === 0) return true;
+    const re = /^[0-9]{8}$/;
+    return re.test(phone);
+  };
+
   const handleSubmit = async () => {
-    const resp: any = await fetch(`./${data.COURSE_ID}/api`, {
+    const resp: any = await fetch(`./${data.STUDENT_ID}/api`, {
       method: "PATCH",
       body: JSON.stringify({
-        COURSE_ID: data.COURSE_ID,
-        NAME: name,
-        DESCRIPTION: description,
-        MAX_STUDENTS: maxStudents,
+        STUDENT_ID: data.STUDENT_ID,
+        FIRST_NAME: firstName,
+        LAST_NAME: lastName,
+        EMAIL: email,
+        PHONE: phone,
       }),
       headers: {
         "Content-Type": "application/json",
       },
     });
-    handleClose();
 
     const response = await resp.json();
     if (!response.Resp) return toast.error("Error al guardar cambios");
@@ -37,6 +61,7 @@ export default function EditView({ label = "Editar", data, update }: any) {
         description: response.Resp.message,
       });
     update();
+    handleClose();
     toast.success(response.Resp.message);
   };
 
@@ -73,30 +98,43 @@ export default function EditView({ label = "Editar", data, update }: any) {
             className="mt-4 flex flex-col gap-5 mb-6"
           >
             <TextField
-              label="Nombre"
+              label="Nombres"
               variant="outlined"
               size="small"
               className="w-full mb-6"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
             ></TextField>
             <TextField
-              label="Descripción"
+              label="Apellidos"
               variant="outlined"
               size="small"
               multiline
               className="w-full mb-6"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
             ></TextField>
             <TextField
-              label="Max. Estudiantes"
+              label="Correo Electrónico"
               variant="outlined"
               size="small"
-              type="number"
+              type="email"
               className="w-full mb-6"
-              value={maxStudents}
-              onChange={(e) => setMaxStudents(e.target.value)}
+              error={!validEmail(email)}
+              helperText={!validEmail(email) ? "Correo no válido" : ""}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            ></TextField>
+            <TextField
+              label="Teléfono"
+              variant="outlined"
+              size="small"
+              type="email"
+              className="w-full mb-6"
+              error={!validPhone(phone)}
+              helperText={!validPhone(phone) ? "Teléfono no válido" : ""}
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
             ></TextField>
           </div>
           <div id="modal-modal-description" className="flex justify-between">
@@ -106,6 +144,14 @@ export default function EditView({ label = "Editar", data, update }: any) {
             <Button
               variant="outlined"
               color="primary"
+              disabled={
+                !validEmail(email) ||
+                !validPhone(phone) ||
+                !firstName ||
+                !lastName ||
+                !email ||
+                !phone
+              }
               onClick={() => {
                 handleSubmit();
               }}

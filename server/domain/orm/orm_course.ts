@@ -1,6 +1,5 @@
 const conn = require('../repositories/repository_oracle');
 
-
 exports.GetAll = async ({status}:any) =>{
     try{
       const where = {

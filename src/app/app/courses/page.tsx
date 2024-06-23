@@ -106,6 +106,12 @@ export default function Courses() {
     updateData({ id, status, callback: update });
   };
 
+  const updateAssignment = (id: number, status: number) => {
+    // updateData({ id, status, callback: update });
+    console.log("id = ", id);
+    console.log("status = ", status);
+  };
+
   return (
     <div>
       {courseDataActive ? (
@@ -132,6 +138,7 @@ export default function Courses() {
             <TabPanel value="1">
               <Table
                 data={courseDataActive}
+                updateAssignment={updateAssignment}
                 updateStatus={updateStatus}
               ></Table>
             </TabPanel>

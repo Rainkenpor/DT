@@ -1,6 +1,6 @@
 "use client";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Button } from "@mui/material";
+import { Button, Chip } from "@mui/material";
 import Link from "next/link";
 
 /**
@@ -16,12 +16,27 @@ export default function Table({
   active = true,
   updateStatus = null,
 }: any) {
+  console.log("data = ", data);
   const columns: GridColDef[] = [
     { field: "STUDENT_ID", headerName: "ID", width: 70 },
     { field: "FIRST_NAME", headerName: "Nombre", width: 130 },
     { field: "LAST_NAME", headerName: "Apellidos", width: 130 },
     { field: "EMAIL", headerName: "Correo Electrónico", width: 280 },
     { field: "PHONE", headerName: "Teléfono", width: 130 },
+    {
+      field: "status",
+      headerName: "Estado",
+      width: 120,
+      renderCell: (params) => (
+        <Chip
+          label={params.row.STATUS.NAME}
+          component="a"
+          href="#basic-chip"
+          variant="outlined"
+          clickable
+        />
+      ),
+    },
     {
       field: "fieldName",
       headerName: "Acciones",
@@ -35,12 +50,12 @@ export default function Table({
                 size="small"
                 style={{ marginRight: "10px" }}
                 component={Link}
-                href={`./students/${params.row.STUDENT_ID}`}
+                href={`../../students/${params.row.STUDENT_ID}`}
               >
                 <span className="mdi mdi-magnify text-2xl"></span>
               </Button>
 
-              <Button
+              {/* <Button
                 variant="text"
                 size="small"
                 color="error"
@@ -49,7 +64,7 @@ export default function Table({
                 }}
               >
                 <span className="mdi mdi-circle-off-outline text-2xl"></span>
-              </Button>
+              </Button> */}
             </div>
           ) : (
             <Button

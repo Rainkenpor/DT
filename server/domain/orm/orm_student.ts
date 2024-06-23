@@ -22,7 +22,7 @@ exports.GetAll = async ({status}:any) =>{
     }
 }
 
-exports.GetById = async ( COURSE_ID:number ) =>{
+exports.GetById = async ( STUDENT_ID:number ) =>{
     try{
         return await connStudent.DT_STUDENT.findOne({
             include: [{
@@ -30,13 +30,13 @@ exports.GetById = async ( COURSE_ID:number ) =>{
                 attributes: [ 'NAME']
             }],
             where: {
-                COURSE_ID,
+                STUDENT_ID,
                 STATUS_ID: 1
             }
         });
-    }catch(err){
+    }catch(err:any){
         console.log(" err orm-user.GetById = ", err);
-        return await {err:{code: 123, messsage: err}}
+        return await {err:{code: 123, messsage: err.toString()}}
     }
 }
 
@@ -55,13 +55,13 @@ exports.Create = async (FIRST_NAME:string, LAST_NAME:string, EMAIL:string, PHONE
     }
 }
 
-exports.DeleteById = async ( COURSE_ID:number ) =>{
+exports.DeleteById = async ( STUDENT_ID:number ) =>{
     try{
         const course = await connStudent.DT_STUDENT.update({
             STATUS_ID: 2
         },{
             where: {
-                COURSE_ID,
+                STUDENT_ID,
                 STATUS_ID: 1
             }
         });
@@ -75,21 +75,22 @@ exports.DeleteById = async ( COURSE_ID:number ) =>{
     }
 }
 
-exports.UpdateById = async ( NAME:string, DESCRIPTION:string, MAX_STUDENTS:number, COURSE_ID:number ) =>{ 
+exports.UpdateById = async ( FIRST_NAME:string, LAST_NAME:string, EMAIL:string, PHONE:string, STUDENT_ID:number ) =>{
     try{
-        const course = await connStudent.DT_STUDENT.update(
+        const student = await connStudent.DT_STUDENT.update(
             {
-              NAME,
-                DESCRIPTION,
-                MAX_STUDENTS
+              FIRST_NAME,
+              LAST_NAME,
+              EMAIL,
+              PHONE
             },{ 
                 where: {
-                    COURSE_ID,
+                    STUDENT_ID,
                     STATUS_ID: 1
                 }
             })
-            if (course[0]===0){
-              return await {err:{code: 123, messsage: "Course not found"}}
+            if (student[0]===0){
+              return await {err:{code: 123, messsage: "Estudiante no encontrado"}}
           }
         return true
     }catch(err){
@@ -98,14 +99,14 @@ exports.UpdateById = async ( NAME:string, DESCRIPTION:string, MAX_STUDENTS:numbe
     }
 }
 
-exports.UpdateStatusById = async ( STATUS_ID:number, COURSE_ID:number ) =>{ 
+exports.UpdateStatusById = async ( STATUS_ID:number, STUDENT_ID:number ) =>{ 
   try{
       const course = await connStudent.DT_STUDENT.update(
           {
             STATUS_ID
           },{ 
               where: {
-                COURSE_ID
+                STUDENT_ID
               }
           })
           if (course[0]===0){

@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'COURSE_ID',
         sourceKey: 'COURSE_ID',
       });
+      DT_COURSE_STUDENT.belongsTo(models.DT_STATUS, {
+        foreignKey: 'STATUS_ID',
+        sourceKey: 'STATUS_ID',
+      });
     }
   }
   DT_COURSE_STUDENT.init({
@@ -31,9 +35,18 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    STATUS_ID: DataTypes.INTEGER,
-    CREATED_AT: DataTypes.DATE,
-    UPDATED_AT: DataTypes.DATE
+    STATUS_ID: {
+      type: DataTypes.INTEGER,
+      defaultValue: 3,
+    },
+    CREATED_AT: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
+    },
+    UPDATED_AT: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
+    },
   }, {
     sequelize,
     modelName: 'DT_COURSE_STUDENT',

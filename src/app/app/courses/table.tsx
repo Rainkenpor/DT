@@ -36,41 +36,49 @@ export default function Table({
     {
       field: "fieldName",
       headerName: "Acciones",
-      width: 200,
+      width: 230,
       renderCell: (params) => (
         <div>
           {active ? (
             <div>
               <Button
-                variant="outlined"
+                variant="text"
                 size="small"
-                style={{ marginRight: "10px" }}
                 component={Link}
                 href={`./courses/${params.row.COURSE_ID}`}
               >
-                Ver
+                <span className="mdi mdi-magnify text-2xl"></span>
               </Button>
 
               <Button
-                variant="outlined"
+                variant="text"
+                size="small"
+                component={Link}
+                href={`./courses/assignments/${params.row.COURSE_ID}`}
+              >
+                <span className="mdi mdi-clipboard-account-outline text-2xl"></span>
+              </Button>
+
+              <Button
+                variant="text"
                 size="small"
                 color="error"
                 onClick={() => {
                   updateStatus(params.row.COURSE_ID, 2);
                 }}
               >
-                Deshabilitar
+                <span className="mdi mdi-circle-off-outline text-2xl"></span>
               </Button>
             </div>
           ) : (
             <Button
-              variant="outlined"
+              variant="text"
               size="small"
               onClick={() => {
                 updateStatus(params.row.COURSE_ID, 1);
               }}
             >
-              Activar
+              <span className="mdi mdi-checkbox-marked-circle-outline text-2xl"></span>
             </Button>
           )}
         </div>

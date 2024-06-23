@@ -1,7 +1,8 @@
 "use client";
 import { Button, TextField } from "@mui/material";
-import Edit from "./edit";
+
 import { useRouter } from "next/navigation";
+import Assignment from "./assignment";
 
 export default function View({ data, update }: any) {
   const router = useRouter();
@@ -12,54 +13,42 @@ export default function View({ data, update }: any) {
 
   return (
     <div>
-      Id: {data.STUDENT_ID}
-      <div className="mt-4">
+      Id: {data.COURSE_ID}
+      <div className="mt-4 flex justify-between gap-2">
         <TextField
-          label="Nombres:"
+          label="Descripción:"
           variant="outlined"
           size="small"
           className="w-full mb-3"
           disabled
-          value={data.FIRST_NAME}
+          value={data.DESCRIPTION}
         ></TextField>
-      </div>
-      <div className="mt-4">
+
         <TextField
-          label="Apellidos:"
+          label="Max. Estudiante:"
           variant="outlined"
           size="small"
           className="w-full mb-3"
           disabled
-          value={data.LAST_NAME}
+          value={data.MAX_STUDENTS}
         ></TextField>
-      </div>
-      <div className="mt-4">
+
         <TextField
-          label="Email:"
+          label="Estudiantes Registrados:"
           variant="outlined"
           size="small"
           className="w-full mb-3"
           disabled
-          value={data.EMAIL}
-        ></TextField>
-      </div>
-      <div className="mt-4">
-        <TextField
-          label="Teléfono:"
-          variant="outlined"
-          size="small"
-          className="w-full mb-3"
-          disabled
-          value={data.PHONE}
+          value={data.NUMBER_OF_STUDENTS}
         ></TextField>
       </div>
       {/* divider */}
       <div className="bg-gray-200/30 h-[1px] w-full mt-2 mb-2"></div>
-      <div className="flex justify-between">
-        <Button variant="outlined" onClick={handleBack}>
+      <div className="flex justify-end">
+        {/* <Button variant="outlined" onClick={handleBack}>
           Regresar
-        </Button>
-        <Edit data={data} update={update}></Edit>
+        </Button> */}
+        <Assignment data={data} update={update} />
       </div>
     </div>
   );

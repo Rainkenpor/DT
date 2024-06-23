@@ -18,23 +18,21 @@ router.patch('/course/:COURSE_ID/status', serviceCourse.UpdateStatusById);
 
 
 router.get('/student/', serviceStudent.GetAll);
-router.get('/student/:id', serviceStudent.GetById);
+router.get('/student/:STUDENT_ID', serviceStudent.GetById);
 router.post('/student/', serviceStudent.Create);
-router.delete('/student/:id', serviceStudent.DeleteById);
-router.patch('/student/:id', serviceStudent.UpdateById);
-router.patch('/student/:id/status', serviceStudent.UpdateStatusById);
+router.delete('/student/:STUDENT_ID', serviceStudent.DeleteById);
+router.patch('/student/:STUDENT_ID', serviceStudent.UpdateById);
+router.patch('/student/:STUDENT_ID/status', serviceStudent.UpdateStatusById);
 
 
 router.get('/status/', serviceStatus.GetAll);
-router.get('/status/:id', serviceStatus.GetById);
+router.get('/status/:STATUS_ID', serviceStatus.GetById);
 router.post('/status/', serviceStatus.Create);
-router.delete('/status/:id', serviceStatus.DeleteById);
-router.patch('/status/:id', serviceStatus.UpdateById);
+router.delete('/status/:STATUS_ID', serviceStatus.DeleteById);
+router.patch('/status/:STATUS_ID', serviceStatus.UpdateById); 
 
 router.get('/course_student/', serviceCourseSt.GetAll);
-router.get('/course_student/:id', serviceCourseSt.GetById);
-router.post('/course_student/', serviceCourseSt.Create);
-router.delete('/course_student/:id', serviceCourseSt.DeleteById);
-router.patch('/course_student/:id', serviceCourseSt.UpdateById);  
+router.get('/course_student/:COURSE_ID', serviceCourseSt.GetById);
+router.patch('/course_student/:COURSE_ID', serviceCourseSt.UpdateById);  
 
 module.exports = router;

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "server": "npx tsc  && node server/server.js",
+    "server": "npx nodemon server/server.ts ",
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:seed": "npx sequelize-cli db:seed:all",
     "db:generate": "npx sequelize-cli db:generate",

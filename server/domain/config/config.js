@@ -9,6 +9,7 @@ module.exports = {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     dialect: process.env.DB_DIALECT,
+     
     pool: {
       max: 5,
       min: 0,
@@ -16,7 +17,7 @@ module.exports = {
       idle: 10000
     },
     logging: false,
-    operatorsAliases: false,
+    operatorsAliases: 0,
     define: {
       timestamps: false,
       freezeTableName: true
@@ -36,7 +37,7 @@ module.exports = {
       idle: 10000
     },
     logging: false,
-    operatorsAliases: false,
+    operatorsAliases: 0,
     define: {
       timestamps: false,
       freezeTableName: true

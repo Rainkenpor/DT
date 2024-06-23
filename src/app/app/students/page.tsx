@@ -31,7 +31,7 @@ function getData({ setData, status }: any) {
       setData(
         res.Resp.data.map((item: any) => ({
           ...item,
-          id: item.COURSE_ID,
+          id: item.STUDENT_ID,
         }))
       );
     })
@@ -53,7 +53,7 @@ function getData({ setData, status }: any) {
 function updateData({ id, status, callback }: any) {
   const resp = fetch(`./students/api`, {
     method: "PATCH",
-    body: JSON.stringify({ COURSE_ID: id, STATUS_ID: status }),
+    body: JSON.stringify({ STUDENT_ID: id, STATUS_ID: status }),
     headers: {
       "Content-Type": "application/json",
     },
