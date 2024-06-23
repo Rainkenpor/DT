@@ -4,7 +4,7 @@ import { Button, TextField } from "@mui/material";
 import { useRouter } from "next/navigation";
 import Assignment from "./assignment";
 
-export default function View({ data, update }: any) {
+export default function View({ data, update, assign }: any) {
   const router = useRouter();
   const handleBack = () => {
     // Router back
@@ -48,7 +48,7 @@ export default function View({ data, update }: any) {
         {/* <Button variant="outlined" onClick={handleBack}>
           Regresar
         </Button> */}
-        <Assignment data={data} update={update} />
+        <Assignment data={data} update={update} assign={assign} />
       </div>
     </div>
   );

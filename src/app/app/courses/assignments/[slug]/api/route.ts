@@ -73,14 +73,15 @@ export async function GET(req: NextRequest, res: NextResponse<ResponseData>) {
 export async function PATCH(req: NextRequest, res: NextResponse<ResponseData>) {
   const { searchParams } = new URL(req.url);
   const assign = searchParams.get("assign");
+  const status = searchParams.get("status");
   const base = process.env.BASE_URL;
 
   console.log("assign ----------------------->", assign);
 
-  if (!assign) {
+  if (assign) {
     const data = await req.json();
     const id = data.hasOwnProperty("COURSE_ID") ? data.COURSE_ID : "";
-    const respuesta = await fetch(`${base}/api/v1/course/${id}/status`, {
+    const respuesta = await fetch(`${base}/api/v1/course_student/${id}`, {
       method: "PATCH",
       body: JSON.stringify(data),
       headers: {
@@ -93,16 +94,22 @@ export async function PATCH(req: NextRequest, res: NextResponse<ResponseData>) {
     return NextResponse.json(await respuesta.json(), {
       status: respuesta.status,
     });
-  } else {
+  }
+  if (status) {
     const data = await req.json();
     const id = data.hasOwnProperty("COURSE_ID") ? data.COURSE_ID : "";
-    const respuesta = await fetch(`${base}/api/v1/course_student/${id}`, {
-      method: "PATCH",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const studentId = data.hasOwnProperty("STUDENT_ID") ? data.STUDENT_ID : "";
+    console.log("studentId = ", id, studentId);
+    const respuesta = await fetch(
+      `${base}/api/v1/course_student/${id}/${studentId}/status`,
+      {
+        method: "PATCH",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (respuesta.status !== 201) {
       console.log("Failed to update course");
     }

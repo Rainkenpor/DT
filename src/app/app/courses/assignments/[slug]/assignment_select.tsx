@@ -33,18 +33,38 @@ function union(a: readonly number[], b: readonly number[]) {
  * @param assignee - Función para actualizar la lista de cursos después de guardar los cambios.
  * @returns El componente de vista de edición.
  */
-export default function AssignmentSelect({ students, setSelect }: any) {
+export default function AssignmentSelect({ students, setSelect, assign }: any) {
   const [checked, setChecked] = React.useState<readonly any[]>([]);
   const [left, setLeft] = React.useState<readonly any[]>([]);
   const [right, setRight] = React.useState<readonly any[]>([]);
 
   useEffect(() => {
-    setLeft(students);
+    setLeft(
+      students.filter(
+        (s: any) =>
+          assign.findIndex((a: any) => a.STUDENT_ID === s.STUDENT_ID) === -1
+      )
+    );
   }, [students]);
 
   useEffect(() => {
     setSelect(right);
   }, [right]);
+
+  useEffect(() => {
+    const select = assign.map((s: any) => {
+      return {
+        NAME: s.NAME,
+        EMAIL: s.EMAIL,
+        FIRST_NAME: s.FIRST_NAME,
+        LAST_NAME: s.LAST_NAME,
+        PHONE: s.PHONE,
+        STATUS_ID: s.STATUS_ID,
+        STUDENT_ID: s.STUDENT_ID,
+      };
+    });
+    setRight(select);
+  }, [assign]);
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);

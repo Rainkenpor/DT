@@ -145,3 +145,63 @@ exports.UpdateById = async (req: any, res: any) => {
       );
   }
 };
+
+exports.UpdateStatusById = async (req: any, res: any) => {
+  try {
+    const COURSE_ID = req.params.COURSE_ID;
+    const STUDENT_ID = req.params.STUDENT_ID;
+    const STATUS_ID = req.body.STATUS_ID;
+    if (
+      COURSE_ID && STUDENT_ID && STATUS_ID && STATUS_ID >= 3  && STATUS_ID && STATUS_ID <=5
+    ) {
+      const respOrm = await ormCourseStudent.UpdateStatusById(
+        STATUS_ID,
+        COURSE_ID,
+        STUDENT_ID
+      );
+      if (respOrm.err)
+        return res
+          .status(enumCourseStudent.CODE_BAD_REQUEST)
+          .send(
+            await magicCourseStudent.ResponseService(
+              "Failure",
+              respOrm.err.code,
+              respOrm.err.messsage,
+              ""
+            )
+          );
+      return res
+        .status(enumCourseStudent.CODE_CREATED)
+        .send(
+          await magicCourseStudent.ResponseService(
+            "Success",
+            "",
+            "Asignación actualizada",
+            ""
+          )
+        );
+    }
+    return res
+      .status(enumCourseStudent.CODE_BAD_REQUEST)
+      .send(
+        await magicCourseStudent.ResponseService(
+          "Failure",
+          enumCourseStudent.ERROR_REQUIRED_FIELD,
+          "Campos requeridos [COURSE_ID, STUDENT_ID, STATUS_ID]",
+          ""
+        )
+      );
+  } catch (err) {
+    console.log("err = ", err);
+    return res
+      .status(enumCourseStudent.CODE_INTERNAL_SERVER_ERROR)
+      .send(
+        await magicCourseStudent.ResponseService(
+          "Failure",
+          enumCourseStudent.CRASH_LOGIC,
+          err,
+          ""
+        )
+      );
+  }
+};

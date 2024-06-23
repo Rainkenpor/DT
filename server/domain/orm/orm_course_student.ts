@@ -100,3 +100,31 @@ exports.UpdateById = async (STUDENTS: Array<number>, COURSE_ID: number) => {
     return await { err: { code: 123, messsage: err } };
   }
 };
+
+exports.UpdateStatusById = async (
+  STATUS_ID: number,
+  COURSE_ID: number,
+  STUDENT_ID: number
+) => {
+  console.log("UpdateStatusById = ", COURSE_ID, STUDENT_ID, STATUS_ID);
+  try {
+    const course = await connCourseStudent.DT_COURSE_STUDENT.update(
+      {
+        STATUS_ID,
+      },
+      {
+        where: {
+          COURSE_ID,
+          STUDENT_ID,
+        },
+      }
+    );
+    if (course[0] === 0) {
+      return await { err: { code: 123, messsage: "Asignación no encontrada" } };
+    }
+    return true;
+  } catch (err) {
+    console.log(" err orm-user.Store = ", err);
+    return await { err: { code: 123, messsage: err } };
+  }
+};

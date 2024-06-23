@@ -32,7 +32,7 @@ function getStudents(id: number, setStudents: any) {
  * @param {Function} props.update - Función para actualizar los datos de la asignación.
  * @returns {JSX.Element} El componente de asignación.
  */
-export default function Assignment({ data, update }: any) {
+export default function Assignment({ data, update, assign }: any) {
   const [name, setName] = React.useState(data.NAME || "");
   const [students, setStudents] = React.useState<any[]>([]);
   const [studentsSelected, setStudentsSelected] = React.useState<any[]>([]);
@@ -117,6 +117,7 @@ export default function Assignment({ data, update }: any) {
           <AssignmentSelect
             students={students}
             setSelect={setSelect}
+            assign={assign}
           ></AssignmentSelect>
           <Divider />
           <div className="flex justify-between mt-2">

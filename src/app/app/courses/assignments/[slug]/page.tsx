@@ -47,6 +47,8 @@ function getDataAssign({ params, setData }: any) {
           ? res.Resp.data.map((m: any) => {
               return {
                 ...m.DT_STUDENT,
+                COURSE_ID: m.COURSE_ID,
+                STATUS_ID: m.STATUS_ID,
                 STATUS: m.DT_STATUS,
                 id: m.DT_STUDENT.STUDENT_ID,
               };
@@ -82,6 +84,7 @@ export default function CoursesId({ params }: any) {
 
   const update = () => {
     getData({ params, setData });
+    getDataAssign({ params, setData: setAssign });
   };
 
   return (
@@ -89,9 +92,9 @@ export default function CoursesId({ params }: any) {
       {data ? (
         <>
           <Toaster />
-          <View data={data} update={update} />
-          {assign && assign.length > 0 ? (
-            <Table data={assign} />
+          <View data={data} update={update} assign={assign} />
+          {assign ? (
+            <Table data={assign} toast={toast} update={update} />
           ) : (
             <div className="flex justify-center">
               <div className="text-center">
