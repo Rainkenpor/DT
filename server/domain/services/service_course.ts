@@ -53,7 +53,7 @@ exports.Create = async (req: any, res: any) =>{
         if( NAME && DESCRIPTION && MAX_STUDENTS ){
           const respOrm = await ormCourse.Create( NAME, DESCRIPTION, MAX_STUDENTS );
           if(respOrm.err) return res.status(enum_.CODE_BAD_REQUEST).send(await magic.ResponseService('Failure',respOrm.err.code,respOrm.err.messsage,''));
-          return res.status(enum_.CODE_CREATED).send(await magic.ResponseService('Success','','Curso actualizado','')); 
+          return res.status(enum_.CODE_CREATED).send(await magic.ResponseService('Success','','Curso creado exitosamente','')); 
         }
         return res.status(enum_.CODE_BAD_REQUEST).send(await magic.ResponseService('Failure',enum_.ERROR_REQUIRED_FIELD,'Campos requeridos [NAME, DESCRIPTION, MAX_STUDENTS]',''));
     } catch(err) {

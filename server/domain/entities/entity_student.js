@@ -32,9 +32,18 @@ module.exports = (sequelize, DataTypes) => {
     LAST_NAME: DataTypes.STRING,
     EMAIL: DataTypes.STRING,
     PHONE: DataTypes.STRING,
-    STATUS_ID: DataTypes.INTEGER,
-    CREATED_AT: DataTypes.DATE,
-    UPDATED_AT: DataTypes.DATE
+    STATUS_ID: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1
+    },
+    CREATED_AT: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
+    },
+    UPDATED_AT: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
+    }
   }, {
     sequelize,
     modelName: 'DT_STUDENT',

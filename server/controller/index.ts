@@ -22,6 +22,8 @@ router.get('/student/:id', serviceStudent.GetById);
 router.post('/student/', serviceStudent.Create);
 router.delete('/student/:id', serviceStudent.DeleteById);
 router.patch('/student/:id', serviceStudent.UpdateById);
+router.patch('/student/:id/status', serviceStudent.UpdateStatusById);
+
 
 router.get('/status/', serviceStatus.GetAll);
 router.get('/status/:id', serviceStatus.GetById);
