@@ -1,10 +1,10 @@
 // ERRORS FROM BUSINESS LOGIC
 
-exports.ERROR_REQUIRED_FIELD          = "BL2021";
-exports.ID_NOT_FOUND                  = "BL2022";
-exports.FAIL_CONVERTED_UUID_TO_STRING = "BL2023";
-exports.NO_CONTENT                    = "BL2024";
-exports.CRASH_LOGIC                   = "BL2025";
+exports.ERROR_REQUIRED_FIELD          = "DT010";
+exports.ID_NOT_FOUND                  = "DT020";
+exports.FAIL_CONVERTED_UUID_TO_STRING = "DT030";
+exports.NO_CONTENT                    = "DT040";
+exports.CRASH_LOGIC                   = "DT050";
 
 //COLORS TO SHOW DETAIL IN LOGS
 exports.BLACK_LOG                     = "\x1b[30m%s\x1b[0m";

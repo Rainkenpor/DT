@@ -10,10 +10,12 @@ const   express         = require('express'),
 console.log('[[ COURSE ], [[ STUDENT ], [[ STATUS ], [[ COURSE_STUDENT ]]]]]');
 
 router.get('/course/', serviceCourse.GetAll);
-router.get('/course/:id', serviceCourse.GetById);
+router.get('/course/:COURSE_ID', serviceCourse.GetById);
 router.post('/course/', serviceCourse.Create);
-router.delete('/course/:id', serviceCourse.DeleteById);
-router.patch('/course/:id', serviceCourse.UpdateById);
+router.delete('/course/:COURSE_ID', serviceCourse.DeleteById);
+router.patch('/course/:COURSE_ID', serviceCourse.UpdateById);
+router.patch('/course/:COURSE_ID/status', serviceCourse.UpdateStatusById);
+
 
 router.get('/student/', serviceStudent.GetAll);
 router.get('/student/:id', serviceStudent.GetById);
