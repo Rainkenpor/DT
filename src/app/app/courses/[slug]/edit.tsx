@@ -8,11 +8,13 @@ export default function EditView({ label = "Editar", data, update }: any) {
   const [maxStudents, setMaxStudents] = React.useState(data.MAX_STUDENTS);
 
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => {
+  const handleOpen = () => {
     setName(data.NAME);
     setDescription(data.DESCRIPTION);
     setMaxStudents(data.MAX_STUDENTS);
+    setOpen(true);
+  };
+  const handleClose = () => {
     setOpen(false);
   };
   const handleSubmit = async () => {

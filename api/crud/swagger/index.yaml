@@ -1,0 +1,247 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: API de Cursos y Estudiantes
+basePath: /
+tags:
+  - name: Curso
+    description: Operaciones relacionadas con cursos
+  - name: Estudiante
+    description: Operaciones relacionadas con estudiantes
+  - name: Estado
+    description: Operaciones relacionadas con estados
+  - name: CursoEstudiante
+    description: Operaciones relacionadas con estudiantes de cursos
+paths:
+  /curso/:
+    get:
+      tags:
+        - Curso
+      summary: Obtener todos los cursos
+      responses:
+        '200':
+          description: Operación exitosa
+    post:
+      tags:
+        - Curso
+      summary: Crear un nuevo curso
+      responses:
+        '200':
+          description: Operación exitosa
+  /curso/{ID_CURSO}:
+    get:
+      tags:
+        - Curso
+      summary: Obtener curso por ID
+      parameters:
+        - name: ID_CURSO
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Operación exitosa
+    delete:
+      tags:
+        - Curso
+      summary: Eliminar curso por ID
+      parameters:
+        - name: ID_CURSO
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Operación exitosa
+    patch:
+      tags:
+        - Curso
+      summary: Actualizar curso por ID
+      parameters:
+        - name: ID_CURSO
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Operación exitosa
+  /curso/{ID_CURSO}/estado:
+    patch:
+      tags:
+        - Curso
+      summary: Actualizar estado del curso por ID
+      parameters:
+        - name: ID_CURSO
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Operación exitosa
+  /estudiante/:
+    get:
+      tags:
+        - Estudiante
+      summary: Obtener todos los estudiantes
+      responses:
+        '200':
+          description: Operación exitosa
+    post:
+      tags:
+        - Estudiante
+      summary: Crear un nuevo estudiante
+      responses:
+        '200':
+          description: Operación exitosa
+  /estudiante/{ID_ESTUDIANTE}:
+    get:
+      tags:
+        - Estudiante
+      summary: Obtener estudiante por ID
+      parameters:
+        - name: ID_ESTUDIANTE
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Operación exitosa
+    delete:
+      tags:
+        - Estudiante
+      summary: Eliminar estudiante por ID
+      parameters:
+        - name: ID_ESTUDIANTE
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Operación exitosa
+    patch:
+      tags:
+        - Estudiante
+      summary: Actualizar estudiante por ID
+      parameters:
+        - name: ID_ESTUDIANTE
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Operación exitosa
+  /estudiante/{ID_ESTUDIANTE}/estado:
+    patch:
+      tags:
+        - Estudiante
+      summary: Actualizar estado del estudiante por ID
+      parameters:
+        - name: ID_ESTUDIANTE
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Operación exitosa
+  /estado/:
+    get:
+      tags:
+        - Estado
+      summary: Obtener todos los estados
+      responses:
+        '200':
+          description: Operación exitosa
+    post:
+      tags:
+        - Estado
+      summary: Crear un nuevo estado
+      responses:
+        '200':
+          description: Operación exitosa
+  /estado/{ID_ESTADO}:
+    get:
+      tags:
+        - Estado
+      summary: Obtener estado por ID
+      parameters:
+        - name: ID_ESTADO
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Operación exitosa
+    delete:
+      tags:
+        - Estado
+      summary: Eliminar estado por ID
+      parameters:
+        - name: ID_ESTADO
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Operación exitosa
+    patch:
+      tags:
+        - Estado
+      summary: Actualizar estado por ID
+      parameters:
+        - name: ID_ESTADO
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Operación exitosa
+  /curso_estudiante/:
+    get:
+      tags:
+        - CursoEstudiante
+      summary: Obtener todos los estudiantes de cursos
+      responses:
+        '200':
+          description: Operación exitosa
+  /curso_estudiante/{ID_CURSO}:
+    get:
+      tags:
+        - CursoEstudiante
+      summary: Obtener estudiante de curso por ID
+      parameters:
+        - name: ID_CURSO
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Operación exitosa
+    patch:
+      tags:
+        - CursoEstudiante
+      summary: Actualizar estudiante de curso por ID
+      parameters:
+        - name: ID_CURSO
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Operación exitosa
+  /curso_estudiante/{ID_CURSO}/{ID_ESTUDIANTE}/estado:
+    patch:
+      tags:
+        - CursoEstudiante
+      summary: Actualizar estado de estudiante de curso por IDs
+      parameters:
+        - name: ID_CURSO
+          in: path
+          required: true
+          type: string
+        - name: ID_ESTUDIANTE
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Operación exitosa
