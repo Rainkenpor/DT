@@ -24,7 +24,7 @@ exports.GetAll = async (req: any, res: any) => {
             ? enumCourseStudent.CODE_OK
             : enumCourseStudent.CODE_NO_CONTENT);
     }
-    resp = await magicCourseStudent.ResponseService(
+    resp = await magicCourseStudent.ResponseService(req,
       status,
       errorCode,
       message,
@@ -33,7 +33,7 @@ exports.GetAll = async (req: any, res: any) => {
     return res.status(statusCode).send(resp);
   } catch (err) {
     console.log("err = ", err);
-    resp = await magicCourseStudent.ResponseService(
+    resp = await magicCourseStudent.ResponseService(req,
       "Failure",
       enumCourseStudent.CRASH_LOGIC,
       err,
@@ -71,7 +71,7 @@ exports.GetById = async (req: any, res: any) => {
           (statusCode = enumCourseStudent.CODE_NOT_FOUND);
       }
     }
-    resp = await magicCourseStudent.ResponseService(
+    resp = await magicCourseStudent.ResponseService(req,
       status,
       errorCode,
       message,
@@ -83,7 +83,7 @@ exports.GetById = async (req: any, res: any) => {
     return res
       .status(enumCourseStudent.CODE_INTERNAL_SERVER_ERROR)
       .send(
-        await magicCourseStudent.ResponseService(
+        await magicCourseStudent.ResponseService(req,
           "Failure",
           enumCourseStudent.CRASH_LOGIC,
           err,
@@ -103,7 +103,7 @@ exports.UpdateById = async (req: any, res: any) => {
         return res
           .status(enumCourseStudent.CODE_BAD_REQUEST)
           .send(
-            await magicCourseStudent.ResponseService(
+            await magicCourseStudent.ResponseService(req,
               "Failure",
               respOrm.err.code,
               respOrm.err.messsage,
@@ -113,7 +113,7 @@ exports.UpdateById = async (req: any, res: any) => {
       return res
         .status(enumCourseStudent.CODE_CREATED)
         .send(
-          await magicCourseStudent.ResponseService(
+          await magicCourseStudent.ResponseService(req,
             "Success",
             "",
             "Asignación actualizada",
@@ -124,7 +124,7 @@ exports.UpdateById = async (req: any, res: any) => {
     return res
       .status(enumCourseStudent.CODE_BAD_REQUEST)
       .send(
-        await magicCourseStudent.ResponseService(
+        await magicCourseStudent.ResponseService(req,
           "Failure",
           enumCourseStudent.ERROR_REQUIRED_FIELD,
           "Campos requeridos [COURSE_ID, STUDENTS]",
@@ -136,7 +136,7 @@ exports.UpdateById = async (req: any, res: any) => {
     return res
       .status(enumCourseStudent.CODE_INTERNAL_SERVER_ERROR)
       .send(
-        await magicCourseStudent.ResponseService(
+        await magicCourseStudent.ResponseService(req,
           "Failure",
           enumCourseStudent.CRASH_LOGIC,
           err,
@@ -163,7 +163,7 @@ exports.UpdateStatusById = async (req: any, res: any) => {
         return res
           .status(enumCourseStudent.CODE_BAD_REQUEST)
           .send(
-            await magicCourseStudent.ResponseService(
+            await magicCourseStudent.ResponseService(req,
               "Failure",
               respOrm.err.code,
               respOrm.err.messsage,
@@ -173,7 +173,7 @@ exports.UpdateStatusById = async (req: any, res: any) => {
       return res
         .status(enumCourseStudent.CODE_CREATED)
         .send(
-          await magicCourseStudent.ResponseService(
+          await magicCourseStudent.ResponseService(req,
             "Success",
             "",
             "Asignación actualizada",
@@ -184,7 +184,7 @@ exports.UpdateStatusById = async (req: any, res: any) => {
     return res
       .status(enumCourseStudent.CODE_BAD_REQUEST)
       .send(
-        await magicCourseStudent.ResponseService(
+        await magicCourseStudent.ResponseService(req,
           "Failure",
           enumCourseStudent.ERROR_REQUIRED_FIELD,
           "Campos requeridos [COURSE_ID, STUDENT_ID, STATUS_ID]",
@@ -196,7 +196,7 @@ exports.UpdateStatusById = async (req: any, res: any) => {
     return res
       .status(enumCourseStudent.CODE_INTERNAL_SERVER_ERROR)
       .send(
-        await magicCourseStudent.ResponseService(
+        await magicCourseStudent.ResponseService(req,
           "Failure",
           enumCourseStudent.CRASH_LOGIC,
           err,

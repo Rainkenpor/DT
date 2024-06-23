@@ -12,11 +12,11 @@ exports.GetAll = async (req: any, res: any) =>{
         }else{
             message = 'Success Response', data = respOrm, statusCode = data.length > 0 ? enumStudent.CODE_OK : enumStudent.CODE_NO_CONTENT;
         }
-        resp = await magicStudent.ResponseService(status,errorCode,message,data);
+        resp = await magicStudent.ResponseService(req,status,errorCode,message,data);
         return res.status(statusCode).send(resp);
     } catch(err) {
         console.log("err = ", err);
-        resp = await magicStudent.ResponseService('Failure',enumStudent.CRASH_LOGIC,err,'');
+        resp = await magicStudent.ResponseService(req,'Failure',enumStudent.CRASH_LOGIC,err,'');
         return res.status(enumStudent.CODE_INTERNAL_SERVER_ERROR).send(resp);
     }
 }
@@ -35,11 +35,11 @@ exports.GetById = async (req: any, res: any) =>{
                 status = 'Failure', errorCode = enumStudent.ID_NOT_FOUND, message = 'ID NOT FOUND', statusCode = enumStudent.CODE_NOT_FOUND;
             }
         }
-        resp = await magicStudent.ResponseService(status,errorCode,message,data);
+        resp = await magicStudent.ResponseService(req,status,errorCode,message,data);
         return res.status(statusCode).send(resp);
     } catch(err) {
         console.log("err = ", err);
-        return res.status(enumStudent.CODE_INTERNAL_SERVER_ERROR).send(await magicStudent.ResponseService('Failure',enumStudent.CRASH_LOGIC,err,''));
+        return res.status(enumStudent.CODE_INTERNAL_SERVER_ERROR).send(await magicStudent.ResponseService(req,'Failure',enumStudent.CRASH_LOGIC,err,''));
     }
 }
 
@@ -52,13 +52,13 @@ exports.Create = async (req: any, res: any) =>{
         const PHONE = req.body.PHONE;
         if( FIRST_NAME && LAST_NAME && EMAIL && PHONE ){
           const respOrm = await ormStudent.Create( FIRST_NAME, LAST_NAME, EMAIL, PHONE );
-          if(respOrm.err) return res.status(enumStudent.CODE_BAD_REQUEST).send(await magicStudent.ResponseService('Failure',respOrm.err.code,respOrm.err.messsage,''));
-          return res.status(enumStudent.CODE_CREATED).send(await magicStudent.ResponseService('Success','','Estudiante creado exitosamente',''));
+          if(respOrm.err) return res.status(enumStudent.CODE_BAD_REQUEST).send(await magicStudent.ResponseService(req,'Failure',respOrm.err.code,respOrm.err.messsage,''));
+          return res.status(enumStudent.CODE_CREATED).send(await magicStudent.ResponseService(req,'Success','','Estudiante creado exitosamente',''));
         }
-        return res.status(enumStudent.CODE_BAD_REQUEST).send(await magicStudent.ResponseService('Failure',enumStudent.ERROR_REQUIRED_FIELD,'Campos requeridos [NAME, DESCRIPTION, MAX_STUDENTS]',''));
+        return res.status(enumStudent.CODE_BAD_REQUEST).send(await magicStudent.ResponseService(req,'Failure',enumStudent.ERROR_REQUIRED_FIELD,'Campos requeridos [NAME, DESCRIPTION, MAX_STUDENTS]',''));
     } catch(err) {
         console.log("err = ", err);
-        return res.status(enumStudent.CODE_INTERNAL_SERVER_ERROR).send(await magicStudent.ResponseService('Failure',enumStudent.CRASH_LOGIC,'err',''));
+        return res.status(enumStudent.CODE_INTERNAL_SERVER_ERROR).send(await magicStudent.ResponseService(req,'Failure',enumStudent.CRASH_LOGIC,'err',''));
     }
 }
 
@@ -71,13 +71,13 @@ exports.UpdateById = async (req: any, res: any) =>{
         const PHONE = req.body.PHONE;
         if( STUDENT_ID && FIRST_NAME && LAST_NAME && EMAIL && PHONE ){
           const respOrm = await ormStudent.UpdateById( FIRST_NAME, LAST_NAME, EMAIL, PHONE, STUDENT_ID );
-          if(respOrm.err) return res.status(enumStudent.CODE_BAD_REQUEST).send(await magicStudent.ResponseService('Failure',respOrm.err.code,respOrm.err.messsage,''));
-          return res.status(enumStudent.CODE_CREATED).send(await magicStudent.ResponseService('Success','','Estudiante actualizado','')); 
+          if(respOrm.err) return res.status(enumStudent.CODE_BAD_REQUEST).send(await magicStudent.ResponseService(req,'Failure',respOrm.err.code,respOrm.err.messsage,''));
+          return res.status(enumStudent.CODE_CREATED).send(await magicStudent.ResponseService(req,'Success','','Estudiante actualizado','')); 
         }
-        return res.status(enumStudent.CODE_BAD_REQUEST).send(await magicStudent.ResponseService('Failure',enumStudent.ERROR_REQUIRED_FIELD,'Campos requeridos [FIRST_NAME, LAST_NAME, EMAIL, PHONE]',''));
+        return res.status(enumStudent.CODE_BAD_REQUEST).send(await magicStudent.ResponseService(req,'Failure',enumStudent.ERROR_REQUIRED_FIELD,'Campos requeridos [FIRST_NAME, LAST_NAME, EMAIL, PHONE]',''));
     } catch(err) {
         console.log("err = ", err);
-        return res.status(enumStudent.CODE_INTERNAL_SERVER_ERROR).send(await magicStudent.ResponseService('Failure',enumStudent.CRASH_LOGIC,err,''));
+        return res.status(enumStudent.CODE_INTERNAL_SERVER_ERROR).send(await magicStudent.ResponseService(req,'Failure',enumStudent.CRASH_LOGIC,err,''));
     }
 }
 
@@ -87,13 +87,13 @@ exports.UpdateStatusById = async (req: any, res: any) =>{
       const STATUS_ID = req.body.STATUS_ID;
       if( STUDENT_ID && STATUS_ID  && STATUS_ID >0 && STATUS_ID < 3 ){
         const respOrm = await ormStudent.UpdateStatusById( STATUS_ID, STUDENT_ID );
-        if(respOrm.err) return res.status(enumStudent.CODE_BAD_REQUEST).send(await magicStudent.ResponseService('Failure',respOrm.err.code,respOrm.err.messsage,''));
-        return res.status(enumStudent.CODE_CREATED).send(await magicStudent.ResponseService('Success','','Estudiante actualizado','')); 
+        if(respOrm.err) return res.status(enumStudent.CODE_BAD_REQUEST).send(await magicStudent.ResponseService(req,'Failure',respOrm.err.code,respOrm.err.messsage,''));
+        return res.status(enumStudent.CODE_CREATED).send(await magicStudent.ResponseService(req,'Success','','Estudiante actualizado','')); 
       }
-      return res.status(enumStudent.CODE_BAD_REQUEST).send(await magicStudent.ResponseService('Failure',enumStudent.ERROR_REQUIRED_FIELD,'Campos requeridos [STUDENT_ID, STATUS_ID]',''));
+      return res.status(enumStudent.CODE_BAD_REQUEST).send(await magicStudent.ResponseService(req,'Failure',enumStudent.ERROR_REQUIRED_FIELD,'Campos requeridos [STUDENT_ID, STATUS_ID]',''));
   } catch(err) {
       console.log("err = ", err);
-      return res.status(enumStudent.CODE_INTERNAL_SERVER_ERROR).send(await magicStudent.ResponseService('Failure',enumStudent.CRASH_LOGIC,err,''));
+      return res.status(enumStudent.CODE_INTERNAL_SERVER_ERROR).send(await magicStudent.ResponseService(req,'Failure',enumStudent.CRASH_LOGIC,err,''));
   }
 }
 
@@ -107,10 +107,10 @@ exports.DeleteById = async (req: any, res: any) =>{
             }else{
                 message = 'Estudiante deshabilitado', statusCode = enumStudent.CODE_OK;
             }
-        resp = await magicStudent.ResponseService(status,errorCode,message,data)
+        resp = await magicStudent.ResponseService(req,status,errorCode,message,data)
         return res.status(statusCode).send(resp);
     } catch(err) {
         console.log("err = ", err);
-        return res.status(enumStudent.CODE_INTERNAL_SERVER_ERROR).send(await magicStudent.ResponseService('Failure',enumStudent.CRASH_LOGIC,err,''));
+        return res.status(enumStudent.CODE_INTERNAL_SERVER_ERROR).send(await magicStudent.ResponseService(req,'Failure',enumStudent.CRASH_LOGIC,err,''));
     }
 }

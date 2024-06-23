@@ -16,8 +16,8 @@ exports.LogDanger = (msg:string) => {
 }
 
 
-exports.ResponseService = async(status:number, code:number, message:string, data:any)=>{
-  axios.post('http://localhost:3101/api/v1/logs', {message: message})
+exports.ResponseService = async(req:any, status:number, code:number, message:string, data:any)=>{
+  axios.post('http://localhost:3101/api/v1/logs', {message: req.method + " | " + req.url+ " | " + message,meta: req.body})
   .then((res:any) => {
       console.log(res.data);
   })
