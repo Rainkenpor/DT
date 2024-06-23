@@ -1,9 +1,6 @@
 const enums = require('./enum');
+const axios = require('axios');
 
-exports.ResponseService = async(status:number, errorCode:number, message:string, data:any)=>{
-    return await {status: status, Resp:{errorCode: errorCode, message: message, data: data}}
-
-}
 
 exports.LogSuccess = (msg:string) => {
     console.log(enums.GREEN_LOG, msg);
@@ -20,6 +17,13 @@ exports.LogDanger = (msg:string) => {
 
 
 exports.ResponseService = async(status:number, code:number, message:string, data:any)=>{
+  axios.post('http://localhost:3101/api/v1/logs', {message: message})
+  .then((res:any) => {
+      console.log(res.data);
+  })
+  .catch((err:any) => {
+      console.log(err.toString());
+  });
     return await {status: status, Resp:{Error: code, message: message, data: data}}
 
 }

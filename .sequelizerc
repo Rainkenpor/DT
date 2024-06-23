@@ -3,8 +3,8 @@
 const path = require('path');
 
 module.exports = {
-  config: path.resolve('server','domain','config', 'config.js'),
-  'models-path': path.resolve('server','domain', 'models'),
-  'seeders-path': path.resolve('server','domain', 'seeders'),
-  'migrations-path': path.resolve('server','domain', 'migrations'),
+  config: path.resolve('api','crud','domain','config', 'config.js'),
+  'models-path': path.resolve('api','crud','domain', 'models'),
+  'seeders-path': path.resolve('api','crud','domain', 'seeders'),
+  'migrations-path': path.resolve('api','crud','domain', 'migrations'),
 };

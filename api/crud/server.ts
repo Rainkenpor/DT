@@ -7,7 +7,7 @@ const cors = require("cors");
 
 // configures dotenv to work in your application
 dotenv.config();
-const PORT = process.env.PORT;
+const PORT = process.env.CRUD_PORT;
 
 server.use(helmet());
 server.use(cors());
