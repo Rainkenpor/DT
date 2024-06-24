@@ -14,7 +14,7 @@ export async function GET (req: NextRequest,res: NextResponse<ResponseData>){
   const { searchParams } = new URL(req.url)  
   const status = searchParams.get('status')
   const base = process.env.BASE_URL;
-  const respuesta = await fetch(`${base}/api/v1/student?status=${status}`, {
+  const respuesta = await fetch(`${base}/student?status=${status}`, {
     cache: "no-cache",
   });
   if (respuesta.status === 204) return NextResponse.json({
@@ -33,7 +33,7 @@ export async function GET (req: NextRequest,res: NextResponse<ResponseData>){
 export async function POST (req: NextRequest,res: NextResponse<ResponseData>){  
   const base = process.env.BASE_URL;
   const data = await req.json()
-  const respuesta = await fetch(`${base}/api/v1/student`, {
+  const respuesta = await fetch(`${base}/student`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -51,7 +51,7 @@ export async function PATCH (req: NextRequest,res: NextResponse<ResponseData>){
   const base = process.env.BASE_URL;
   const data = await req.json()
   const id = data.hasOwnProperty('STUDENT_ID') ? data.STUDENT_ID : '';
-  const respuesta = await fetch(`${base}/api/v1/student/${id}/status`, {
+  const respuesta = await fetch(`${base}/student/${id}/status`, {
     method: "PATCH",
     body: JSON.stringify(data),
     headers: {

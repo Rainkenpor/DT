@@ -17,7 +17,7 @@ export async function GET(req: NextRequest, res: NextResponse<ResponseData>) {
   const base = process.env.BASE_URL;
 
   if (slug) {
-    const respuesta = await fetch(`${base}/api/v1/course/${slug}`, {
+    const respuesta = await fetch(`${base}/course/${slug}`, {
       cache: "no-cache",
     });
     return NextResponse.json(await respuesta.json(), {
@@ -25,7 +25,7 @@ export async function GET(req: NextRequest, res: NextResponse<ResponseData>) {
     });
   }
   if (students) {
-    const respuesta = await fetch(`${base}/api/v1/student`, {
+    const respuesta = await fetch(`${base}/student`, {
       cache: "no-cache",
     });
     if (respuesta.status === 204)
@@ -47,7 +47,7 @@ export async function GET(req: NextRequest, res: NextResponse<ResponseData>) {
   }
   if (assign) {
     console.log("assign = ", assign);
-    const respuesta = await fetch(`${base}/api/v1/course_student/${assign}`, {
+    const respuesta = await fetch(`${base}/course_student/${assign}`, {
       cache: "no-cache",
     });
     // console.log("respuesta = ", respuesta);
@@ -81,7 +81,7 @@ export async function PATCH(req: NextRequest, res: NextResponse<ResponseData>) {
   if (assign) {
     const data = await req.json();
     const id = data.hasOwnProperty("COURSE_ID") ? data.COURSE_ID : "";
-    const respuesta = await fetch(`${base}/api/v1/course_student/${id}`, {
+    const respuesta = await fetch(`${base}/course_student/${id}`, {
       method: "PATCH",
       body: JSON.stringify(data),
       headers: {
@@ -101,7 +101,7 @@ export async function PATCH(req: NextRequest, res: NextResponse<ResponseData>) {
     const studentId = data.hasOwnProperty("STUDENT_ID") ? data.STUDENT_ID : "";
     console.log("studentId = ", id, studentId);
     const respuesta = await fetch(
-      `${base}/api/v1/course_student/${id}/${studentId}/status`,
+      `${base}/course_student/${id}/${studentId}/status`,
       {
         method: "PATCH",
         body: JSON.stringify(data),

@@ -18,7 +18,7 @@ export async function GET (req: NextRequest,res: NextResponse<ResponseData>){
   
 
   if (status) {
-    const respuesta = await fetch(`${base}/api/v1/course?status=${status}`, {
+    const respuesta = await fetch(`${base}/course?status=${status}`, {
       cache: "no-cache",
     });
     if (respuesta.status === 204) return NextResponse.json({
@@ -33,7 +33,7 @@ export async function GET (req: NextRequest,res: NextResponse<ResponseData>){
     return NextResponse.json(await respuesta.json(),{status:respuesta.status});
   }
   if (students) {
-    const respuesta = await fetch(`${base}/api/v1/student`, {
+    const respuesta = await fetch(`${base}/student`, {
       cache: "no-cache",
     });
     if (respuesta.status === 204) return NextResponse.json({
@@ -53,7 +53,7 @@ export async function GET (req: NextRequest,res: NextResponse<ResponseData>){
 export async function POST (req: NextRequest,res: NextResponse<ResponseData>){  
   const base = process.env.BASE_URL;
   const data = await req.json()
-  const respuesta = await fetch(`${base}/api/v1/course`, {
+  const respuesta = await fetch(`${base}/course`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -77,7 +77,7 @@ export async function PATCH (req: NextRequest,res: NextResponse<ResponseData>){
   if (!assign){
     const data = await req.json()
     const id = data.hasOwnProperty('COURSE_ID') ? data.COURSE_ID : '';
-    const respuesta = await fetch(`${base}/api/v1/course/${id}/status`, {
+    const respuesta = await fetch(`${base}/course/${id}/status`, {
       method: "PATCH",
       body: JSON.stringify(data),
       headers: {
@@ -91,7 +91,7 @@ export async function PATCH (req: NextRequest,res: NextResponse<ResponseData>){
   }else{
     const data = await req.json()
     const id = data.hasOwnProperty('COURSE_ID') ? data.COURSE_ID : '';
-    const respuesta = await fetch(`${base}/api/v1/course_student/${id}`, { 
+    const respuesta = await fetch(`${base}/course_student/${id}`, { 
       method: "PATCH",
       body: JSON.stringify(data),
       headers: {

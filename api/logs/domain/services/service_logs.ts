@@ -7,6 +7,8 @@ const ObjectId = Schema.ObjectId;
 
 const LOGS = mongoose.model( 'LOGS', new Schema({
   date: { type: Date, required: true },
+  method: { type: String, required: true },
+  path: { type: String, required: true },
   message: { type: String, required: true },
   meta: { type: Object, required: true },
 }) );
@@ -22,6 +24,8 @@ exports.Create = async (req: any, res: any) => {
   // Creando un nuevo log
   const log = new LOGS({
     date: new Date(),
+    method: req.body.method,
+    path: req.body.path,
     message:  req.body.message,
     meta: req.body.meta
   });
